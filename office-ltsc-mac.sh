@@ -1,6 +1,4 @@
 #!/bin/bash
-# Alur Office LTSC native macOS; bukan port HWID, Ohook, TSforge, atau KMS Windows.
-# Memerlukan VL Serializer 2024 terpisah dan hak lisensi yang sesuai.
 set -euo pipefail
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export LC_ALL=C
@@ -129,7 +127,6 @@ trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-# Periksa dan pasang salinan yang sama; berkas serializer asli tidak diubah.
 cp "$serializer" "$workdir/serializer.pkg"
 serializer="$workdir/serializer.pkg"
 printf 'macOS %s (%s); target Office LTSC 2024.\n' "$os_version" "$(uname -m)"
@@ -176,7 +173,6 @@ if [[ "$activate_only" == false ]]; then
     verify_microsoft_package "$workdir/office.pkg"
 fi
 
-# Periksa ulang sesudah unduhan karena aplikasi bisa dibuka selama menunggu.
 require_closed_office
 if [[ "$activate_only" == false ]]; then
     sudo /usr/sbin/installer -pkg "$workdir/office.pkg" -target / ||
